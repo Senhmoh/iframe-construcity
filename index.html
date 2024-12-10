@@ -11,6 +11,7 @@
       width: 100%;
       height: 100%;
       font-family: Arial, sans-serif;
+      overflow: hidden; /* Empêche le défilement */
     }
     .container {
       width: 100%;
@@ -40,7 +41,7 @@
     }
     iframe {
       width: 100%;
-      height: 100%;
+      height: calc(100% - 50px); /* Ajuste la hauteur pour exclure la barre */
       border: none;
     }
     .header {
