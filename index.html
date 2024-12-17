@@ -3,59 +3,105 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Choix de Navigation</title>
+  <title>Navigation Interactive</title>
   <style>
+    /* Global Styles */
     body, html {
       margin: 0;
       padding: 0;
       width: 100%;
       height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       display: flex;
       flex-direction: column;
-      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
     }
     nav {
       width: 100%;
-      height: 60px;
-      background-color: #004a99;
+      height: 70px;
+      background: linear-gradient(to right, #004a99, #007bbf);
       color: white;
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      z-index: 10;
     }
-    button {
+
+    /* Buttons and Dropdown */
+    button, select {
       padding: 10px 20px;
       font-size: 16px;
-      cursor: pointer;
-      border: none;
-      background-color: #f0f0f0;
-      color: #004a99;
-      border-radius: 5px;
       font-weight: bold;
+      color: #004a99;
+      background: #fff;
+      border: 2px solid #004a99;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
     }
-    button:hover {
-      background-color: #d9d9d9;
+    button:hover, select:hover {
+      background: #004a99;
+      color: #fff;
     }
+    select {
+      appearance: none;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24'><path d='M7 10l5 5 5-5z' fill='%23004a99'/></svg>");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      padding-right: 40px;
+    }
+
+    /* Iframe */
     iframe {
       border: none;
       width: 100%;
-      height: calc(100vh - 60px); /* Subtract nav height */
+      height: calc(100vh - 70px);
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        height: auto;
+        padding: 10px;
+      }
+      button, select {
+        width: 80%;
+        margin: 5px 0;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Navigation -->
   <nav>
     <button onclick="loadSite()">Site Construcity</button>
-    <button onclick="loadChatbot()">Chatbot</button>
+    <select id="language-select" onchange="loadChatbot()">
+      <option value="fr" selected>Chatbot - Français</option>
+      <option value="nl">Chatbot - Nederlands</option>
+      <option value="en">Chatbot - English</option>
+      <option value="es">Chatbot - Español</option>
+      <option value="ar">Chatbot - عربي</option>
+      <option value="pl">Chatbot - Polski</option>
+      <option value="uk">Chatbot - українська</option>
+    </select>
   </nav>
+
+  <!-- Content Frame -->
   <iframe id="content-frame" src="https://www.construcity.brussels/"></iframe>
+
+  <!-- JavaScript -->
   <script>
     function loadSite() {
       document.getElementById('content-frame').src = "https://www.construcity.brussels/";
     }
+
     function loadChatbot() {
-      document.getElementById('content-frame').src = "https://constructiv.kwerio.net/__/chatbot/public?lang=fr";
+      const language = document.getElementById('language-select').value;
+      const url = `https://constructiv.kwerio.net/__/chatbot/public?lang=${language}`;
+      document.getElementById('content-frame').src = url;
     }
   </script>
 </body>
